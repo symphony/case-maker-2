@@ -4,30 +4,14 @@ const { assertEqual } = require('./assertEqual');
 const makeCase = (input, style) => {
   const priority = [ 'upper', 'lower', 'vowel', 'consonant', 'camel', 'pascal', 'snake', 'kebab', 'title' ];
   const cases = {
-    camel: ([first, ...rest]) => {
-      return first + rest.map(word => word.slice(0, 1).toUpperCase() + word.slice(1)).join('');
-    },
-    pascal: (phrase) => {
-      return phrase.map(word => word.slice(0, 1).toUpperCase() + word.slice(1)).join('');
-    },
-    snake: (phrase) => {
-      return phrase.join('_');
-    },
-    kebab: (phrase) => {
-      return phrase.join('-');
-    },
-    title: (phrase) => {
-      return phrase.map(word => word.slice(0, 1).toUpperCase() + word.slice(1)).join(' ');
-    },
-    vowel: (phrase) => {
-      return phrase.map(word => word.replace(/[aeiou]/g, char => char.toUpperCase())).join(' ');
-    },
-    consonant: (phrase) => {
-      return phrase.map(word => word.replace(/[^aeiou]/g, char => char.toUpperCase())).join(' ');
-    },
-    upper: (phrase) => {
-      return phrase.join('_').toUpperCase();
-    },
+    camel: ([first, ...rest]) => first + rest.map(word => word.slice(0, 1).toUpperCase() + word.slice(1)).join(''),
+    pascal: phrase => phrase.map(word => word.slice(0, 1).toUpperCase() + word.slice(1)).join(''),
+    snake: phrase => phrase.join('_'),
+    kebab: phrase => phrase.join('-'),
+    title: phrase => phrase.map(word => word.slice(0, 1).toUpperCase() + word.slice(1)).join(' '),
+    vowel: phrase => phrase.map(word => word.replace(/[aeiou]/g, char => char.toUpperCase())).join(' '),
+    consonant: phrase => phrase.map(word => word.replace(/[^aeiou]/g, char => char.toUpperCase())).join(' '),
+    upper: phrase => phrase.join('_').toUpperCase(),
   };
   // Sanitize inputs
   const inputX = input.trim().toLowerCase().split(/[\s-_+]/);
