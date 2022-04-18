@@ -1,14 +1,14 @@
 const { assertEqual } = require('./assertEqual');
 
+// == main function ==
 const makeCase = (input, style) => {
   const priority = [ 'upper', 'lower', 'vowel', 'consonant', 'camel', 'pascal', 'snake', 'kebab', 'title' ];
-  const vowels = ['a', 'e', 'i', 'o', 'u'];
   const cases = {
-    camel: (phrase) => {
-
+    camel: ([first, ...rest]) => {
+      return first + rest.map(word => word.slice(0, 1).toUpperCase() + word.slice(1)).join('');
     },
     pascal: (phrase) => {
-      return phrase.map(a => a.slice(0, 1).toUpperCase() + a.slice(1)).join('');
+      return phrase.map(word => word.slice(0, 1).toUpperCase() + word.slice(1)).join('');
     },
     snake: (phrase) => {
       return phrase.join('_');
@@ -17,13 +17,13 @@ const makeCase = (input, style) => {
       return phrase.join('-');
     },
     title: (phrase) => {
-      return phrase.map(a => a.slice(0, 1).toUpperCase() + a.slice(1)).join(' ');
+      return phrase.map(word => word.slice(0, 1).toUpperCase() + word.slice(1)).join(' ');
     },
     vowel: (phrase) => {
-
+      return phrase.map(word => word.replace(/[aeiou]/g, char => char.toUpperCase())).join(' ');
     },
     consonant: (phrase) => {
-
+      return phrase.map(word => word.replace(/[^aeiou]/g, char => char.toUpperCase())).join(' ');
     },
     upper: (phrase) => {
       return phrase.join('_').toUpperCase();
@@ -35,6 +35,7 @@ const makeCase = (input, style) => {
   return cases[styleX](inputX);
 };
 
+// == tests ==
 assertEqual(makeCase("this-is-a string", "camel"), 'thisIsAString');
 assertEqual(makeCase("this is a string", "pascal"), 'ThisIsAString');
 assertEqual(makeCase("tHis is a+string ", "snake"), 'this_is_a_string');
