@@ -2,7 +2,7 @@ const { assertEqual } = require('./assertEqual');
 
 // == main function ==
 const makeCase = (input, style) => {
-  const priority = [ 'upper', 'lower', 'vowel', 'consonant', 'camel', 'pascal', 'snake', 'kebab', 'title' ];
+  const priority = [ ['camel', 'pascal', 'snake', 'kebab', 'title'] , ['vowel', 'consonant'],  ['upper', 'lower'] ];
   const cases = {
     camel: ([first, ...rest]) => first + rest.map(word => word.slice(0, 1).toUpperCase() + word.slice(1)).join(''),
     pascal: phrase => phrase.map(word => word.slice(0, 1).toUpperCase() + word.slice(1)).join(''),
@@ -15,8 +15,12 @@ const makeCase = (input, style) => {
   };
   // Sanitize inputs
   const inputX = input.trim().toLowerCase().split(/[\s-_+]/);
-  const styleX = Array.isArray(style) ? priority.find(a => style.includes(a)) : style;
-  return cases[styleX](inputX);
+  if (Array.isArray(style)) {
+    for (const ele of style) {
+      const styleX = priority
+    }
+  };
+  return cases[style](inputX);
 };
 
 // == tests ==
@@ -27,5 +31,5 @@ assertEqual(makeCase("this is a stRing", "kebab"), 'this-is-a-string', 'kebab');
 assertEqual(makeCase(" this is_a string", "title"), 'This Is A String', 'title');
 assertEqual(makeCase("this iS a string", "vowel"), 'thIs Is A strIng', 'vowel');
 assertEqual(makeCase("this is a string", "consonant"), 'THiS iS a STRiNG', 'consonant');
-assertEqual(makeCase("thIs is a string", ["upper", "snake"]), 'THIS_IS_A_STRING', 'upper');
-assertEqual(makeCase("thIs is a string", ['snake', 'kebab', 'consonant', 'title', 'camel', 'pascal']), 'THiS iS a STRiNG', 'consonant');
+assertEqual(makeCase("thIs is a string", ["upper", "snake"]), 'THIS_IS_A_STRING', 'snake > upper');
+assertEqual(makeCase("thIs is a string", ["pascal", "vowel"]), 'THIS_IS_A_STRING', 'pascal > vowel');
