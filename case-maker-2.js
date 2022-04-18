@@ -20,11 +20,12 @@ const makeCase = (input, style) => {
 };
 
 // == tests ==
-assertEqual(makeCase("this-is-a string", "camel"), 'thisIsAString');
-assertEqual(makeCase("this is a string", "pascal"), 'ThisIsAString');
-assertEqual(makeCase("tHis is a+string ", "snake"), 'this_is_a_string');
-assertEqual(makeCase("this is a stRing", "kebab"), 'this-is-a-string');
-assertEqual(makeCase(" this is_a string", "title"), 'This Is A String');
-assertEqual(makeCase("this iS a string", "vowel"), 'thIs Is A strIng');
-assertEqual(makeCase("this is a string", "consonant"), 'THiS iS a STRiNG');
-assertEqual(makeCase("thIs is a string", ["upper", "snake"]), 'THIS_IS_A_STRING');
+assertEqual(makeCase("this-is-a string", "camel"), 'thisIsAString', 'camel');
+assertEqual(makeCase("this is a string", "pascal"), 'ThisIsAString', 'pascal');
+assertEqual(makeCase("tHis is a+string ", "snake"), 'this_is_a_string', 'snake');
+assertEqual(makeCase("this is a stRing", "kebab"), 'this-is-a-string', 'kebab');
+assertEqual(makeCase(" this is_a string", "title"), 'This Is A String', 'title');
+assertEqual(makeCase("this iS a string", "vowel"), 'thIs Is A strIng', 'vowel');
+assertEqual(makeCase("this is a string", "consonant"), 'THiS iS a STRiNG', 'consonant');
+assertEqual(makeCase("thIs is a string", ["upper", "snake"]), 'THIS_IS_A_STRING', 'upper');
+assertEqual(makeCase("thIs is a string", ['snake', 'kebab', 'consonant', 'title', 'camel', 'pascal']), 'THiS iS a STRiNG', 'consonant');

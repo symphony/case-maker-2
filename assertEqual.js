@@ -17,13 +17,13 @@ const eqObjects = function(objectA, objectB) {
   return true;
 };
 
-const assertEqual = function(actual, expected) {
+const assertEqual = function(actual, expected, note) {
   const inspect = require('util').inspect;
-  const failedMsg = `🦐 Assertion Failed 🍅 > ${inspect(actual)} !== ${inspect(expected)}`;
-  const passedMsg = `👽 Assertion Passed 🐸 > ${inspect(actual)} === ${inspect(expected)}`;
-  let isEqual = eqNonObj(actual, expected); // send to sub function
+  const passedMsg = `👽 Assertion Passed 🐸 > ${inspect(actual)} === ${inspect(expected)}${note ? ' (' + note + ')' : ''}`;
+  const failedMsg = `🦐 Assertion Failed 🍅 > ${inspect(actual)} !== ${inspect(expected)}${note ? ' (' + note + ')' : ''}`;
+  let isEqual = eqNonObj(actual, expected); // send to helper function
   const areObjs = typeof(actual) === "object" && typeof(expected) === "object";
-  if (!isEqual && areObjs) isEqual = eqObjects(actual, expected); // send to sub function
+  if (!isEqual && areObjs) isEqual = eqObjects(actual, expected); // send to helper function
   console.log(isEqual ? passedMsg : failedMsg);
 };
 
