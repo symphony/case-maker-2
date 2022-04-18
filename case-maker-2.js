@@ -13,13 +13,13 @@ const cases = {
   upper: phrase => phrase.join(' ').toUpperCase(),
 };
 
-const convertMultiple = (inputSplit, style) => {
+const convertMultiple = (phrase, style) => {
   const priority = [ ['camel', 'pascal', 'snake', 'kebab', 'title'] , ['vowel', 'consonant'],  ['upper', 'lower'] ];
-  let result = inputSplit;
+  let result = phrase;
   for (const group of priority) {
-    const styleX = group.find(a => style.includes(a));
-    if (!styleX) continue;
-    result = cases[styleX](result);
+    const newStyle = group.find(a => style.includes(a));
+    if (!newStyle) continue;
+    result = cases[newStyle](result);
     result = result.split(' ');
   }
   return result.join(' ');
@@ -27,9 +27,9 @@ const convertMultiple = (inputSplit, style) => {
 
 // == main function ==
 const makeCase = (input, style) => {
-  const inputSplit = input.trim().toLowerCase().split(/[\s-_+]/); // sanitize
-  if (Array.isArray(style)) return convertMultiple(inputSplit, style);
-  return cases[style](inputSplit);
+  const phrase = input.trim().toLowerCase().split(/[\s-_+]/); // sanitize
+  if (Array.isArray(style)) return convertMultiple(phrase, style);
+  return cases[style](phrase);
 };
 
 // == tests ==
